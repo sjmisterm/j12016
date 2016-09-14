@@ -1,0 +1,55 @@
+package br.com.improving.demo.jackpot.processor;
+
+import static javax.ejb.TransactionAttributeType.REQUIRED;
+import static javax.ejb.TransactionAttributeType.REQUIRES_NEW;
+import static javax.ejb.TransactionAttributeType.SUPPORTS;
+
+import java.util.EnumSet;
+import java.util.Set;
+
+import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.Messager;
+import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.RoundEnvironment;
+import javax.annotation.processing.SupportedAnnotationTypes;
+import javax.annotation.processing.SupportedSourceVersion;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
+import javax.tools.Diagnostic.Kind;
+
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
+@SupportedAnnotationTypes("javax.ejb.TransactionAttribute")
+public class TransactionalProcessor extends AbstractProcessor {
+	private static final Set<TransactionAttributeType> VALID = EnumSet.of(
+			REQUIRED, REQUIRES_NEW, SUPPORTS);
+	private Messager messager;
+
+	@Override
+	public synchronized void init(ProcessingEnvironment processingEnv) {
+		super.init(processingEnv);
+		messager = processingEnv.getMessager();
+	}
+
+	@Override
+	public boolean process(Set<? extends TypeElement> annotations,
+			RoundEnvironment roundEnv) {
+		roundEnv.getElementsAnnotatedWith(TransactionAttribute.class).stream()
+				.filter(TransactionalProcessor::invalid)
+				.forEach(this::error);
+		return false;
+	}
+
+	private static boolean invalid(Element e) {
+		return !VALID.contains(e.getAnnotation(TransactionAttribute.class)
+				.value());
+	}
+
+	private void error(Element e) {
+		messager.printMessage(Kind.ERROR,
+				"TransactionAttribute.value must be " + VALID, e);
+	}
+}
+
