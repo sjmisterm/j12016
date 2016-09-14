@@ -1,0 +1,13 @@
+org.hibernate.annotations.ForeignKey =>
+javax.persistence.ForeignKey
+;;
+
+$mods$
+@javax.persistence.JoinColumn(name = $column)
+@javax.persistence.ForeignKey(name = $fk)
+$type $var
+=>
+$mods$
+@javax.persistence.JoinColumn(name = $column, foreignKey = @javax.persistence.ForeignKey(name = $fk))
+$type $var
+;;

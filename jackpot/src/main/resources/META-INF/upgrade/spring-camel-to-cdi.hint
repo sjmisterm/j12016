@@ -1,0 +1,12 @@
+$modifiers$ 
+@org.springframework.stereotype.Component
+class $name extends $superClass$ implements $superInterfaces$ {
+    $members$;
+} :: $name instanceof org.apache.camel.RoutesBuilder
+=> 
+$modifiers$
+@org.apache.camel.cdi.ContextName
+class $name extends $superClass$ implements $superInterfaces$ {
+    $members$;
+}
+;;

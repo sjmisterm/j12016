@@ -1,0 +1,23 @@
+$modifiers$
+class $name extends $superClass$ implements $superInterfaces$ {
+   $members$;
+	$mmodifiers$ 
+   @javax.ejb.TransactionAttribute
+   <$typeParams$> $returnType $mname($args$) throws $thrown$ {
+		 $bodyStatements$;
+	}
+   $otherMembers$;
+} :: !containsAny($_, "@javax.ejb.Stateless") && !containsAny($_, "@javax.ejb.Singleton")
+=>
+$modifiers$
+@javax.ejb.Stateless
+class $name extends $superClass$ implements $superInterfaces$ {
+   $members$;
+	$mmodifiers$ 
+   @javax.ejb.TransactionAttribute
+   <$typeParams$> $returnType $mname($args$) throws $thrown$ {
+		 $bodyStatements$;
+	}
+   $otherMembers$;
+}
+;;

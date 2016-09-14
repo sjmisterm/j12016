@@ -1,0 +1,30 @@
+'Migrate to java.time.LocalDate':
+org.joda.time.LocalDate =>
+java.time.LocalDate
+;;
+
+'Replace new LocalDate() with LocalDate.now()':
+new java.time.LocalDate() =>
+java.time.LocalDate.now()
+;;
+
+'Replace LocalDate.dayOfMonth().getMaximumValue() with LocalDate.lengthOfMonth()':
+$1.dayOfMonth().getMaximumValue() :: $1 instanceof java.time.LocalDate =>
+$1.lengthOfMonth()
+;;
+
+'Replace LocalDate.dayOfMonth().withMaximumValue() with TemporalAdjusters.lastDayOfMonth()':
+$1.dayOfMonth().withMaximumValue() :: $1 instanceof java.time.LocalDate =>
+$1.with(java.time.temporal.TemporalAdjusters.lastDayOfMonth())
+;;
+
+'Replace LocalDate.dayOfWeek().withMaximumValue() with TemporalAdjusters.nextOrSame(SUNDAY)':
+$1.dayOfWeek().withMaximumValue() :: $1 instanceof java.time.LocalDate =>
+$1.with(java.time.temporal.TemporalAdjusters.nextOrSame(java.time.DayOfWeek.SUNDAY))
+;;
+
+org.joda.time.Days.daysBetween($1, $2).getDays() :: $1 instanceof java.time.LocalDate && 
+													$2 instanceof java.time.LocalDate
+=>
+java.lang.Math.toIntExact(java.time.temporal.ChronoUnit.DAYS.between($1, $2))
+;;

@@ -1,0 +1,17 @@
+$modifiers$ 
+@org.springframework.stereotype.Controller
+class $name extends $superClass$ implements $superInterfaces$ {
+    $members$;
+}
+=> 
+$modifiers$ 
+class $name extends $superClass$ implements $superInterfaces$ {
+    $members$;
+} :: containsAny($_, "@javax.inject.Named")
+=>
+$modifiers$ 
+@javax.inject.Named
+class $name extends $superClass$ implements $superInterfaces$ {
+    $members$;
+} :: otherwise
+;;

@@ -1,0 +1,27 @@
+$modifiers$ 
+@javax.ejb.Stateless
+@javax.inject.Named
+class $name extends $superClass$ implements $superInterfaces$ {
+    $members$;
+}
+=> 
+$modifiers$ 
+@javax.ejb.Stateless
+class $name extends $superClass$ implements $superInterfaces$  {
+    $members$;
+}
+;;
+
+$modifiers$ 
+@javax.ejb.Singleton
+@javax.inject.Named
+class $name extends $superClass$ implements $superInterfaces$ {
+    $members$;
+}
+=> 
+$modifiers$ 
+@javax.ejb.Singleton
+class $name extends $superClass$ implements $superInterfaces$  {
+    $members$;
+}
+;;

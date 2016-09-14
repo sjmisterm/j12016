@@ -1,0 +1,12 @@
+$modifiers$ 
+@javax.enterprise.context.SessionScoped
+class $name extends $superClass$ implements $superInterfaces$ {
+    $members$;
+} :: !$name instanceof java.io.Serializable
+=> 
+$modifiers$ 
+@javax.enterprise.context.SessionScoped
+class $name extends $superClass$ implements $superInterfaces$, java.io.Serializable  {
+    $members$;
+}
+;;

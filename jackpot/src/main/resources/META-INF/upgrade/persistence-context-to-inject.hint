@@ -1,0 +1,8 @@
+$mod$
+@javax.persistence.PersistenceContext($args$)
+javax.persistence.EntityManager $name = $init$;
+=>
+$mod$
+@javax.inject.Inject
+javax.persistence.EntityManager $name = $init$;
+;;
